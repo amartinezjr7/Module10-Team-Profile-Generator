@@ -1,0 +1,22 @@
+{
+  "name": "module10-team-profile-generator",
+  "version": "1.0.0",
+  "description": "This will dynamically create a web page for a team from the command line",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amartinezjr7/Module10-Team-Profile-Generator.git"
+  },
+  "author": "Alejandro Martinez Jr.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amartinezjr7/Module10-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/amartinezjr7/Module10-Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
