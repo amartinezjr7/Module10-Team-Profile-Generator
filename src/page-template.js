@@ -25,11 +25,11 @@ module.exports = templateData =>{
             <div class="card-body">
               <h3 class="card-title bg-primary text-light text-center">${templateData.managerName}</h3>
                 <h4 class="card-subtitle mb-2 text-light text-center bg-primary">Manager</h4>
-              <ul>    
-                  <li>Employee ID: ${templateData.managerID}</li>
-                  <li>Email:<a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></li>
-                  <li>Github:<a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a></li>
-                  <li>Office Number:<a>${templateData.officeNum}</a></li>
+              <ul class="list-group list-group-flush">    
+                  <li class="list-group-item">Employee ID: ${templateData.managerID}</li>
+                  <li class="list-group-item">Email:<a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></li>
+                  <li class="list-group-item">Github:<a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a></li>
+                  <li class="list-group-item">Office Number:<a>${templateData.officeNum}</a></li>
               </ul>      
             </div>
           </div>
