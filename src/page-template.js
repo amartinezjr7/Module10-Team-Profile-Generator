@@ -18,9 +18,9 @@ module.exports = templateData =>{
     <h1 class="page-title text-light bg-danger py-5 px-5 text-center">${templateData.teamName}</h1>
   </div>
 </header>
-    <main class="constainer">
-      <div class="row">
-        <div class="col-sm-6">
+    <main class="constainer px-4">
+      <div class="row row-cols-1 row-cols-md-3 g-5">
+        <div class="col">
           <div class="card shadow-lg border-3" style="width: 18rem;">
             <div class="card-body">
               <h3 class="card-title bg-primary text-light text-center">${templateData.managerName}</h3>
@@ -35,6 +35,8 @@ module.exports = templateData =>{
           </div>
         </div>
       </div>  
+
+      
     </main>
 
   </body>
