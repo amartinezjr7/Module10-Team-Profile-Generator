@@ -19,18 +19,22 @@ module.exports = templateData =>{
   </div>
 </header>
     <main class="constainer">
-        <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h3 class="card-title bg-secondary text-light text-center">${templateData.managerName}</h3>
-            <h4 class="card-subtitle mb-2 text-light text-center bg-secondary">Manager</h4>
-            <h6>Employee ID: ${templateData.managerID}</h6>
-            <h6>Email:
-            <a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></h6>
-            <h6>Github:
-            <a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a><h6>
-            <h6>Office Number:<a>${templateData.officeNum}</a></h6>
-         </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card shadow-lg border-3" style="width: 18rem;">
+            <div class="card-body">
+              <h3 class="card-title bg-primary text-light text-center">${templateData.managerName}</h3>
+                <h4 class="card-subtitle mb-2 text-light text-center bg-primary">Manager</h4>
+              <ul>    
+                  <li>Employee ID: ${templateData.managerID}</li>
+                  <li>Email:<a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></li>
+                  <li>Github:<a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a></li>
+                  <li>Office Number:<a>${templateData.officeNum}</a></li>
+              </ul>      
+            </div>
+          </div>
         </div>
+      </div>  
     </main>
 
   </body>
