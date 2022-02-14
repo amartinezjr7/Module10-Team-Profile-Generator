@@ -1,3 +1,25 @@
+const generateTeam = (templateData) =>{
+  return `
+  <div class="col">
+  <div class="card shadow-lg border-3" style="width: 18rem;">
+    <div class="card-body">
+      <h3 class="card-title bg-primary text-light text-center">${templateData.managerName}</h3>
+        <h4 class="card-subtitle mb-2 text-light text-center bg-primary">${templateData.jobTitle}</h4>
+      <ul class="list-group list-group-flush">    
+          <li class="list-group-item">Employee ID: ${templateData.managerID}</li>
+          <li class="list-group-item">Email:<a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></li>
+          <li class="list-group-item">Github:<a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a></li>
+          <li class="list-group-item">Office Number:<a>${templateData.officeNum}</a></li>
+      </ul>      
+    </div>
+  </div>
+</div>
+  
+  `;
+}
+
+
+
 module.exports = templateData =>{
     return `
     <!DOCTYPE html>
@@ -35,7 +57,7 @@ module.exports = templateData =>{
           </div>
         </div>
       </div>  
-
+      
       
     </main>
 

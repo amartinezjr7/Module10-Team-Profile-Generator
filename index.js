@@ -85,7 +85,27 @@ const promptUser=() =>{
     ]);
 };
 
+const promptTeam = teamData=>{
+    if(!teamData.roster){
+        teamData.roster = [];
+    }
+
+    console.log('Please give me information about your team!!');
+    return inquirer.prompt([
+        {
+            type:'checkbox',
+            name:'jobTitle',
+            message:'Please pick the job title of your employee',
+            choices:['engineer','intern','Finished building']
+            
+        }
+    ]).then(rosterData =>{
+        teamData.roster.push(rosterData);
+    });
+};
+
 promptUser()
+    //.then(promptTeam)
     .then(teamData =>{
         console.log(teamData);
 
