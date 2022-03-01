@@ -96,22 +96,68 @@ const promptTeam = teamData=>{
             type:'checkbox',
             name:'jobTitle',
             message:'Please pick the job title of your employee',
-            choices:['engineer','intern','Finished building']
+            choices:['engineer','intern']
             
+        },
+        {
+            type: 'input',
+            name:'teamMemberName',
+            message:'What is the name of your employee?',
+            validate:(nameVal) =>{
+                if(nameVal){
+                    return true;
+                }else{
+                    console.log("You must enter their name!!");
+                    return false;
+                }
+
+            }
+        },
+        {
+            type:'input',
+            name:'employID',
+            message:"Wahat is the employee's ID?",
+            validate:(IDval) =>{
+                if(IDval){
+                    return true;
+                }else{
+                    console.log("Please provide the employee ID");
+                    return true;
+                }
+            }
+        },
+        {
+            type:'input',
+            name:'employEmail',
+            message:"Please provide the employee's email",
+            validate:(emailVal) =>{
+                if(emailVal){
+                    return true;
+                }else{
+                    console.log("You must provide the employee's email");
+                    return false;
+                }
+            }
         }
-    ]).then(rosterData =>{
-        teamData.roster.push(rosterData);
-    });
+
+    ]).then(projectData => {
+        teamData.roster.push(projectData);
+        if (projectData.confirmAddProject) {
+          return promptProject(teamData);
+        } else {
+          return teamData;
+        }
+      });
 };
 
 promptUser()
-    //.then(promptTeam)
+    .then(promptTeam)
     .then(teamData =>{
         console.log(teamData);
 
         const pageHTML = generatePage(teamData);
 
-        fs.writeFile('index.html', pageHTML, err =>{
+        fs.writeFile('./dist/index.html', pageHTML, err =>{
             if(err) throw new Error (err);
         });
     });
