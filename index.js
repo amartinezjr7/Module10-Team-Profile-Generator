@@ -76,8 +76,9 @@ const promptUser=() =>{
             }
         }
     ]).then(managerAns =>{
-        var manager = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNum);
+        var manager = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNum, managerAns.teamName);
         allTeam.push(manager);
+        
         promptTeam();
     })
 };
@@ -205,47 +206,25 @@ function newIntern(){
             name:'school',
             message:"Please provide the intern's school", 
         },
-    ])
+    ]).then(interAns =>{
+        const newInt = new Intern(interAns.internName, interAns.internID, interAns.internEmail, interAns.school)
+        allTeam.push(newInt);
+        promptTeam();
+    })
 }
 
-function teamObj(teamData){
-    var name = teamData.teamMemberName;
-    var id = teamData.teamMemID;
-    var email = teamData.teamMemEmail;
-    var role = teamData.jobTitle;
-
-
-    /*const 
-    const newIntern = new Intern(name, id, email, teamData.school);*/
-
-   if(role = 'Engineer'){
-        console.log("its an engineer");
-        const engineer = new Engineer(name, id, email, teamData.github);
-        teamData.push(engineer);
-        console.log(engineer);
-    }else if(role = 'Intern'){
-        console.log("its an intern");
-    }
-    return teamData;
-
-    
-};
 
 
 function renderPage(){
    console.log(allTeam);
 
 
-   // const pageHTML = generatePage(allTeam);
-   /* fs.writeFile('./dist/index.html', pageHTML, err =>{
+    const pageHTML = generatePage(allTeam);
+   fs.writeFile('./dist/index.html', pageHTML, err =>{
         if(err) throw new Error (err);
-    });*/
+    });
 
 }
 
 
-promptUser()
-  /*.then(managerAns =>{managerObj(managerAns);})
-  .then(promptTeam)
-  .then(teamData => {teamObj(teamData);
-    renderPage(managerInfo, teamData)})*/
+promptUser();
