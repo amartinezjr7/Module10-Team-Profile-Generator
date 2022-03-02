@@ -76,7 +76,9 @@ const promptUser=() =>{
             }
         }
     ]).then(managerAns =>{
-        var manager = new Manager(managerAns.managerName, managerAns.manager)
+        var manager = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNum);
+        allTeam.push(manager);
+        promptTeam();
     })
 };
 
@@ -87,12 +89,25 @@ const promptTeam = ()=>{
             type:'list',
             name:'jobTitle',
             message:'Please pick the job title of your employee',
-            choices:['Engineer','Intern']
+            choices:['Engineer','Intern', 'all done']
             
-        },
+        }
+    ]).then(role =>{
+        if(role.jobTitle === 'Engineer'){
+            newEngineer()
+        }else if(role.jobTitle ==='Intern'){
+            newIntern();
+        }else{
+            renderPage();
+        }
+    })
+};
+
+function newEngineer(){
+    return inquirer.prompt([
         {
             type: 'input',
-            name:'teamMemberName',
+            name:'engineerName',
             message:'What is the name of your employee?',
             validate:(nameVal) =>{
                 if(nameVal){
@@ -106,7 +121,7 @@ const promptTeam = ()=>{
         },
         {
             type:'input',
-            name:'teamMemID',
+            name:'engineerID',
             message:"Wahat is the Team Members's ID?",
             validate:(IDval) =>{
                 if(IDval){
@@ -119,7 +134,7 @@ const promptTeam = ()=>{
         },
         {
             type:'input',
-            name:'TeamMemEmail',
+            name:'engineerEmail',
             message:"Please provide the Team Member's email",
             validate:(emailVal) =>{
                 if(emailVal){
@@ -134,36 +149,64 @@ const promptTeam = ()=>{
             type: 'input',
             name:'github',
             message:"Please provide the engineer's github",
-            when: (jobAns) => jobAns.jobTitle === 'Engineer'
+        }
+    ]).then(enginAns=>{
+        const newEngin = new Engineer(enginAns.engineerName, enginAns.engineerID, enginAns.engineerEmail, enginAns.github);
+        allTeam.push(newEngin);
+        promptTeam();
+    })
+
+}
+
+function newIntern(){
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name:'internName',
+            message:'What is the name of your employee?',
+            validate:(nameVal) =>{
+                if(nameVal){
+                    return true;
+                }else{
+                    console.log("You must enter their name!!");
+                    return false;
+                }
+
+            }
+        },
+        {
+            type:'input',
+            name:'internID',
+            message:"Wahat is the Team Members's ID?",
+            validate:(IDval) =>{
+                if(IDval){
+                    return true;
+                }else{
+                    console.log("Please provide the Team Member's ID");
+                    return true;
+                }
+            }
+        },
+        {
+            type:'input',
+            name:'internEmail',
+            message:"Please provide the Team Member's email",
+            validate:(emailVal) =>{
+                if(emailVal){
+                    return true;
+                }else{
+                    console.log("You must provide the Team Member's email");
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             name:'school',
-            message:"Please provide the intern's school",
-            when:(roleAns)=> roleAns.jobTitle === 'Intern' 
+            message:"Please provide the intern's school", 
         },
-        {
-            type:'confirm',
-            name:'newTeamMember',
-            message:'Would you like to add another Team Member?'
-        }
-
     ])
-};
-
-
-function managerObj(managerAns){
-    managerInfo = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNum);
-    
-    teamName = managerAns.teamName;
-    managerName = managerAns.managerName;
-    managerID = managerAns.managerID;
-    managerEmail = managerAns.managerEmail;
-    officeNum = managerAns.officeNum;
-
-
-    return managerInfo;
-};
+}
 
 function teamObj(teamData){
     var name = teamData.teamMemberName;
@@ -189,25 +232,20 @@ function teamObj(teamData){
 };
 
 
-function renderPage(managerInfo, teamData){
-    const output = new Map();
-
-    output.set(managerInfo);
-    output.set(teamData);
-
-   // console.log(output);
+function renderPage(){
+   console.log(allTeam);
 
 
-    const pageHTML = generatePage(output);
-    fs.writeFile('./dist/index.html', pageHTML, err =>{
+   // const pageHTML = generatePage(allTeam);
+   /* fs.writeFile('./dist/index.html', pageHTML, err =>{
         if(err) throw new Error (err);
-    });
+    });*/
 
 }
 
 
 promptUser()
-  .then(managerAns =>{managerObj(managerAns);})
+  /*.then(managerAns =>{managerObj(managerAns);})
   .then(promptTeam)
   .then(teamData => {teamObj(teamData);
-    renderPage(managerInfo, teamData)})
+    renderPage(managerInfo, teamData)})*/
