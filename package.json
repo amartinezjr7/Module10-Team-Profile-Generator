@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "This will dynamically create a web page for a team from the command line",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
+    "start":"node index.js",
     "test": "jest"
   },
   "repository": {

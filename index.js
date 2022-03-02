@@ -1,6 +1,12 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generatePage = require('./src/page-template.js');
+const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/Engineer.js');
+const Intern = require('./lib/Intern.js');
+
+const allTeam = [];
+
 
 const promptUser=() =>{
     return inquirer.prompt([
@@ -58,19 +64,6 @@ const promptUser=() =>{
         },
         {
             type:'input',
-            name:'managerGithub',
-            message:'Please enter the managers github handle (required)',
-            validate: manGit =>{
-                if(manGit){
-                    return true;
-                }else{
-                    console.log('manager github required');
-                    return false; 
-                }
-            }
-        },
-        {
-            type:'input',
             name:'officeNum',
             message:'Please Enter the office Number (required)',
             validate:offNum=>{
@@ -82,21 +75,19 @@ const promptUser=() =>{
                 }
             }
         }
-    ]);
+    ]).then(managerAns =>{
+        var manager = new Manager(managerAns.managerName, managerAns.manager)
+    })
 };
 
-const promptTeam = teamData=>{
-    if(!teamData.roster){
-        teamData.roster = [];
-    }
-
+const promptTeam = ()=>{
     console.log('Please give me information about your team!!');
     return inquirer.prompt([
         {
-            type:'checkbox',
+            type:'list',
             name:'jobTitle',
             message:'Please pick the job title of your employee',
-            choices:['engineer','intern']
+            choices:['Engineer','Intern']
             
         },
         {
@@ -115,49 +106,108 @@ const promptTeam = teamData=>{
         },
         {
             type:'input',
-            name:'employID',
-            message:"Wahat is the employee's ID?",
+            name:'teamMemID',
+            message:"Wahat is the Team Members's ID?",
             validate:(IDval) =>{
                 if(IDval){
                     return true;
                 }else{
-                    console.log("Please provide the employee ID");
+                    console.log("Please provide the Team Member's ID");
                     return true;
                 }
             }
         },
         {
             type:'input',
-            name:'employEmail',
-            message:"Please provide the employee's email",
+            name:'TeamMemEmail',
+            message:"Please provide the Team Member's email",
             validate:(emailVal) =>{
                 if(emailVal){
                     return true;
                 }else{
-                    console.log("You must provide the employee's email");
+                    console.log("You must provide the Team Member's email");
                     return false;
                 }
             }
+        },
+        {
+            type: 'input',
+            name:'github',
+            message:"Please provide the engineer's github",
+            when: (jobAns) => jobAns.jobTitle === 'Engineer'
+        },
+        {
+            type: 'input',
+            name:'school',
+            message:"Please provide the intern's school",
+            when:(roleAns)=> roleAns.jobTitle === 'Intern' 
+        },
+        {
+            type:'confirm',
+            name:'newTeamMember',
+            message:'Would you like to add another Team Member?'
         }
 
-    ]).then(projectData => {
-        teamData.roster.push(projectData);
-        if (projectData.confirmAddProject) {
-          return promptProject(teamData);
-        } else {
-          return teamData;
-        }
-      });
+    ])
 };
 
-promptUser()
-    .then(promptTeam)
-    .then(teamData =>{
-        console.log(teamData);
 
-        const pageHTML = generatePage(teamData);
+function managerObj(managerAns){
+    managerInfo = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNum);
+    
+    teamName = managerAns.teamName;
+    managerName = managerAns.managerName;
+    managerID = managerAns.managerID;
+    managerEmail = managerAns.managerEmail;
+    officeNum = managerAns.officeNum;
 
-        fs.writeFile('./dist/index.html', pageHTML, err =>{
-            if(err) throw new Error (err);
-        });
+
+    return managerInfo;
+};
+
+function teamObj(teamData){
+    var name = teamData.teamMemberName;
+    var id = teamData.teamMemID;
+    var email = teamData.teamMemEmail;
+    var role = teamData.jobTitle;
+
+
+    /*const 
+    const newIntern = new Intern(name, id, email, teamData.school);*/
+
+   if(role = 'Engineer'){
+        console.log("its an engineer");
+        const engineer = new Engineer(name, id, email, teamData.github);
+        teamData.push(engineer);
+        console.log(engineer);
+    }else if(role = 'Intern'){
+        console.log("its an intern");
+    }
+    return teamData;
+
+    
+};
+
+
+function renderPage(managerInfo, teamData){
+    const output = new Map();
+
+    output.set(managerInfo);
+    output.set(teamData);
+
+   // console.log(output);
+
+
+    const pageHTML = generatePage(output);
+    fs.writeFile('./dist/index.html', pageHTML, err =>{
+        if(err) throw new Error (err);
     });
+
+}
+
+
+promptUser()
+  .then(managerAns =>{managerObj(managerAns);})
+  .then(promptTeam)
+  .then(teamData => {teamObj(teamData);
+    renderPage(managerInfo, teamData)})

@@ -1,26 +1,26 @@
-const generateTeam = (templateData) =>{
+
+const generateEngineer = () =>{
   return `
   <div class="col">
   <div class="card shadow-lg border-3" style="width: 18rem;">
     <div class="card-body">
-      <h3 class="card-title bg-primary text-light text-center">${templateData.managerName}</h3>
-        <h4 class="card-subtitle mb-2 text-light text-center bg-primary">${templateData.jobTitle}</h4>
+      <h3 class="card-title bg-primary text-light text-center">${map.teamMemberName}}</h3>
+        <h4 class="card-subtitle mb-2 text-light text-center bg-primary">${map.jobTitle}</h4>
       <ul class="list-group list-group-flush">    
-          <li class="list-group-item">Employee ID: ${templateData.managerID}</li>
-          <li class="list-group-item">Email:<a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></li>
-          <li class="list-group-item">Github:<a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a></li>
-          <li class="list-group-item">Office Number:<a>${templateData.officeNum}</a></li>
+          <li class="list-group-item">Employee ID: ${map.teamMemID}</li>
+          <li class="list-group-item">Email:<a href="${map.teamMemEmail}" class="card-link">${map.teamMemEmail}</a></li>
+          <li class="list-group-item">github:<a>${map.github}</a></li>
       </ul>      
     </div>
   </div>
 </div>
-  
-  `;
+`;
 }
 
 
 
-module.exports = templateData =>{
+
+module.exports = () =>{
     return `
     <!DOCTYPE html>
   <html lang="en">
@@ -37,7 +37,7 @@ module.exports = templateData =>{
   <body>
   <header>
   <div class="container align-center">
-    <h1 class="page-title text-light bg-danger py-5 px-5 text-center">${templateData.teamName}</h1>
+    <h1 class="page-title text-light bg-danger py-5 px-5 text-center">${teamName}</h1>
   </div>
 </header>
     <main class="constainer px-4">
@@ -45,22 +45,19 @@ module.exports = templateData =>{
         <div class="col">
           <div class="card shadow-lg border-3" style="width: 18rem;">
             <div class="card-body">
-              <h3 class="card-title bg-primary text-light text-center">${templateData.managerName}</h3>
+              <h3 class="card-title bg-primary text-light text-center">${managerName}</h3>
                 <h4 class="card-subtitle mb-2 text-light text-center bg-primary">Manager</h4>
               <ul class="list-group list-group-flush">    
-                  <li class="list-group-item">Employee ID: ${templateData.managerID}</li>
-                  <li class="list-group-item">Email:<a href="${templateData.managerEmail}" class="card-link">${templateData.managerEmail}</a></li>
-                  <li class="list-group-item">Github:<a href="https://www.github.com/${templateData.managerGithub}" class="card-link">${templateData.managerGithub}</a></li>
-                  <li class="list-group-item">Office Number:<a>${templateData.officeNum}</a></li>
+                  <li class="list-group-item">Employee ID: ${managerID}</li>
+                  <li class="list-group-item">Email:<a href="${managerEmail}" class="card-link">${managerEmail}</a></li>
+                  <li class="list-group-item">Office Number:<a>${officeNum}</a></li>
               </ul>      
             </div>
           </div>
         </div>
-      </div>  
-      
-      
+      </div> 
     </main>
-
+    ${generateEngineer}
   </body>
   </html>`;
 }
