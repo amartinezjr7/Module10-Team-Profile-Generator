@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # Module10-Team-Profile-Generator
 
 ## User Story
@@ -30,13 +32,19 @@ WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
 ```
 
-## Demo ##
+# Install
+
+in the command line, type npm i
+
+## Demo
+
 ![demo](/src/team-generator-demo.gif)
-![demo-link](https://watch.screencastify.com/v/ghXC5rYouDP0feQWySXd)
+![demo-link](https://drive.google.com/file/d/1e_etC9lj4aYaMLeC8GRAcQ6WsvPPK7HH/view)
 
-## Finished product ##
-I was only able to complete the managers portion of the project. However, I was able to present this area to the completion criteria
-When prompted, It will display the managers name, ID, Email and office number
+## Finished product
 
-## challanges ##
-While being able to practice the project from the portfolio generator, i did have an issue saving the data from the previous method. Ill be sure to fix this and re-submit
+Product is able to follow all specs
+
+## challanges
+
+While being able to practice the project from the portfolio generator, I had the hardest time trying to export the data to the html page
