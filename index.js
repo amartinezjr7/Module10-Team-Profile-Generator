@@ -216,9 +216,6 @@ function newIntern(){
 
 
 function renderPage(){
-   console.log(allTeam);
-
-
     const pageHTML = generatePage(allTeam);
    fs.writeFile('./dist/index.html', pageHTML, err =>{
         if(err) throw new Error (err);

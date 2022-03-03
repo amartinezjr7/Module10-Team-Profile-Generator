@@ -1,15 +1,32 @@
-
-const generateEngineer = () =>{
+const generateEngineer = eData =>{
   return `
   <div class="col">
   <div class="card shadow-lg border-3" style="width: 18rem;">
     <div class="card-body">
-      <h3 class="card-title bg-primary text-light text-center">${map.teamMemberName}}</h3>
-        <h4 class="card-subtitle mb-2 text-light text-center bg-primary">${map.jobTitle}</h4>
+      <h3 class="card-title bg-primary text-light text-center">${eData.name}</h3>
+        <h4 class="card-subtitle mb-2 text-light text-center bg-primary">Engineer</h4>
       <ul class="list-group list-group-flush">    
-          <li class="list-group-item">Employee ID: ${map.teamMemID}</li>
-          <li class="list-group-item">Email:<a href="${map.teamMemEmail}" class="card-link">${map.teamMemEmail}</a></li>
-          <li class="list-group-item">github:<a>${map.github}</a></li>
+          <li class="list-group-item">Employee ID: ${eData.id}</li>
+          <li class="list-group-item">Email:<a href="${eData.email}" class="card-link">${eData.email}</a></li>
+          <li class="list-group-item">github:<a>${eData.github}</a></li>
+      </ul>      
+    </div>
+  </div>
+</div>
+`;
+}
+
+const generateIntern = iData =>{
+  return `
+  <div class="col">
+  <div class="card shadow-lg border-3" style="width: 18rem;">
+    <div class="card-body">
+      <h3 class="card-title bg-primary text-light text-center">${iData.name}</h3>
+        <h4 class="card-subtitle mb-2 text-light text-center bg-primary">Engineer</h4>
+      <ul class="list-group list-group-flush">    
+          <li class="list-group-item">Employee ID: ${iData.id}</li>
+          <li class="list-group-item">Email:<a href="${iData.email}" class="card-link">${iData.email}</a></li>
+          <li class="list-group-item">school:<a>${iData.school}</a></li>
       </ul>      
     </div>
   </div>
@@ -20,7 +37,10 @@ const generateEngineer = () =>{
 
 
 
-module.exports = () =>{
+module.exports = templateData =>{
+  var mData = templateData[0];
+  var eData = templateData[1];
+  var iData = templateData[2];
     return `
     <!DOCTYPE html>
   <html lang="en">
@@ -37,27 +57,29 @@ module.exports = () =>{
   <body>
   <header>
   <div class="container align-center">
-    <h1 class="page-title text-light bg-danger py-5 px-5 text-center">${teamName}</h1>
+    <h1 class="page-title text-light bg-danger py-5 px-5 text-center">${mData.teamName}</h1>
   </div>
 </header>
-    <main class="constainer px-4">
+    <main class="container px-4">
       <div class="row row-cols-1 row-cols-md-3 g-5">
         <div class="col">
           <div class="card shadow-lg border-3" style="width: 18rem;">
             <div class="card-body">
-              <h3 class="card-title bg-primary text-light text-center">${managerName}</h3>
+              <h3 class="card-title bg-primary text-light text-center">${mData.name}</h3>
                 <h4 class="card-subtitle mb-2 text-light text-center bg-primary">Manager</h4>
               <ul class="list-group list-group-flush">    
-                  <li class="list-group-item">Employee ID: ${managerID}</li>
-                  <li class="list-group-item">Email:<a href="${managerEmail}" class="card-link">${managerEmail}</a></li>
-                  <li class="list-group-item">Office Number:<a>${officeNum}</a></li>
+                  <li class="list-group-item">Employee ID: ${mData.id}</li>
+                  <li class="list-group-item">Email:<a href="{Manager.email}" class="card-link">${mData.email}</a></li>
+                  <li class="list-group-item">Office Number:<a>${mData.officeNumber}</a></li>
               </ul>      
             </div>
           </div>
         </div>
-      </div> 
+      </div>  
+      ${generateEngineer(eData)}
+      ${generateIntern(iData)}
     </main>
-    ${generateEngineer}
+   
   </body>
   </html>`;
 }
